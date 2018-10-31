@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import random
+import logging
+logging.captureWarnings(True)
 
 
 headers = {
@@ -12,11 +14,12 @@ url = "https://www.all-hashtag.com/library/contents/ajax_generator.php"
 data = {}
 def get_hashtag(keyword):
     data.update({"keyword":keyword,"filter":"random"})
-    resp = requests.post(url, data=data, headers=headers)
+    resp = requests.post(url, data=data, headers=headers,verify=False)
     soup = BeautifulSoup(resp.content, 'html.parser')
     tag = soup.find("div", {"id": "copy-hashtags"})
+    print keyword,tag
     l = tag.text.split("#")
-    s=  '#'.join(random.sample(l, 25))
+    s=  '#'.join(random.sample(l, 10))
     return s
 
 

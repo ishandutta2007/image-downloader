@@ -67,7 +67,44 @@ if __name__ ==  "__main__":
 
     landscapes_name = "landscapes.txt"
     landscapes_content = "#landscapes #landscape #nature #landscapephotography #sunset #photography #ig #naturephotography #sky #travel #lovers #captures #naturelovers #photographer #mountains #landscapelovers #photooftheday #canon #view #amazing #lover #clouds #instagood #trees #sunrise #picoftheday #trip #travelblogger #sunsets"
+    kids_name = "kids.txt"
+    kids_content = "#kids #baby #indonesia #like #love #cute #fashion #ootd #follow #dance #kidsfashion #art #instagood #family #hijab #syari #gamis #university #abstractart #abstractdancing #stairway #philosophy #bdsm #richtanzt #switzerland #mathematics #danceart #onlineshop #action #bhfyp"
+
+    jew_name = "crystal_jewelry23.txt"
+    jew_content = "#jewelry #fashion #like #shopping #accessories #stylish #style #trend #love #moda #hechoamano #regalo #talca #linareschile #instacool #amor #instyle #designart #artesanal #talcachile #curicochile #amunetacces #artesana #artresin #dress #shoes #model #botanic #outfit #bhfyp"
+
+    hair_name = "daisy_hair23.txt"
     
+    hair_content ="#hairs #hairstyles #haircolor #hair #haircut #hairstylist #hairdo #hairdressing #hairy #hairstyling #haircolorist #hairspray #hairtutorial #eyelashbox #lash #eyelashfactory #dminkeyelashes #dminkeyelash #hairbundles #eyelashes #hairproduct #minkeyelashes #minkeyelash #lashextensions #hairdressermagic #hairandmakeup #lashes #hairclipmurash #hairstyle #bhfyp"
+
+    makeup_name = "daphne_makeup23.txt"
+    makeup_content = "#makeup #fashion #beauty #like #makeupartist #hair #model #love #style #instagood #follow #girl #mua #photography #hot #beautiful #makeuptutorial #wedding #instagram #likeforlike #hairstyle #ootd #likes #funny #me #selfie #blue #photo #instapic #bhfyp"
+
+    handmade23_name = "darcy_handmade23.txt"
+    handmade23_content = "#handmade #style #baku #jewelrydesigner #silver #gold #azerbaijan #silverjewelry #onlinestore #bakuunivermag #bakumall #mall #genclikmall #metropark #parkbulvar #jewelery #lacinticaretmerkezi #gozellik #qizil #gumush #ayargumus #goldmilano #shippingworldwide #sifarish #bestjewelry #art #fashion #design #gift #bhfyp"
+
+ 
+    debbie_portrait23_name = "debbie_portrait23.txt"
+    debbie_portrait23_content = "#portrait #art #portraitphotography #artwork #instaart #fineart #portraitphotographer #digitalart #instaartist #digital #worldofartists #shot #originalart #artgram #digitalportrait #digitalartist #artstudio #darkart #pictureperfect #fashionart #professionalartist #exclusive #bestartist #modelart #celebrityart #artdigital #expensivetaste #whattobuy #beautifulart #bhfyp"
+    demi_comedian_name = "demi_comedian.txt"
+    demi_comedian_content = "#comedian #comedy #funny #actor #lol #instagram #worldstar #jokes #humor #haha #memes #standupcomedy #vine #theshaderoom #wildnout #lmao #follow #hilarious #writer #like #snl #followme #balleralert #majorityleague #coppin #desi #lafftracks #lolnetwork #comedyhype #bhfyp"
+
+    diana_speaker = "diana_speaker.txt"
+    diana_speaker_content = "#speaker #author #music #coach #entrepreneur #motivation #inspiration #business #speakers #Speaker #book #instagood #mentor #love #k #motivationalspeaker #writer #bluetooth #mentalhealth #leadership #audio #lifecoach #sound #life #travel #keynotespeaker #success #radioshow #mindsetcoach #bhfyp"
+
+    elain_shoes23 = "elain_shoes23.txt"
+    elain_shoes23_content = "#shoes #fashion #style #fashionblogger #nike #sneakers #love #model #shoesaddict #shopping #instagood #beautiful #stylish #cute #heels #girls #sneakerhead #bags #ootd #dress #photography #outfit #adidas #kicks #like #boots #mensfashion #highheels #luxury #bhfyp"
+
+
+
+    ella_tattoo23 = "ella_tattoo23.txt"
+    ella_tattoo23_content = "#tattoo #art #tattoos #ink #inktober #love #drawing #illustration #inked #vme #d #beautiful #blackwork #follow #tattooart #tattooed #artist #beauty #makeup #healthy #tattooartist #like #black #tatuaje #fitnesslife #fitness #instagood #sketch #picoftheday #bhfyp"
+
+    ellie_music = "ellie_music.txt"
+    ellie_music_content = "#music #love #hiphop #art #rap #s #musica #photography #singer #dance #song #fashion #rock #dj #instamusic #jazz #pop #musically #newmusic #artist #live #soundcloud #instagood #trap #musician #followme #beats #guitar #rapper #bhfyp"
+    emily_racing= "emily_racing.txt"
+    emily_racing_content = "#racing #cars #car #race #speed #motorsport #c #f #porsche #sportscar #racecar #photography #m #drive #sport #r #motorcycle #ride #gt #photooftheday #carsofinstagram #bikelife #auto #bmw #exoticcar #exoticcars #sportscars #honda #horsepower #bhfyp"
+
     l = [{"name":peopel_name,"content":people_content},{"name":cel_name,"content":cel_content},
          {"name":per_arts_name,"content":per_arts_content},{"name":city_arch_name,"content":city_arch_content},
          {"name":city_arch_name,"content":city_arch_content},{"name":sport_name,"content":sport_content},
@@ -79,5 +116,10 @@ if __name__ ==  "__main__":
          {"name":fine_art_name,"content":fine_art_content},{"name":urban_exploration_name,"content":urban_exploration_content},
          {"name":food_name,"content":food_content},{"name":journalism_name,"content":journalism_content},
          {"name":landscapes_name,"content":landscapes_content}]
+    l = [{"name":kids_name,"content":kids_content},{"name":jew_name,"content":jew_content},{"name":hair_name,"content":hair_content},
+         {"name":makeup_name,"content":makeup_content},{"name":handmade23_name,"content":handmade23_content},{"name":debbie_portrait23_name,"content":debbie_portrait23_content},
+         {"name":demi_comedian_name,"content":demi_comedian_content},{"name":diana_speaker,"content":diana_speaker_content},{"name":elain_shoes23,"content":elain_shoes23_content},
+         {"name":ella_tattoo23,"content":ella_tattoo23_content},{"name":ellie_music,"content":ellie_music_content},{"name":emily_racing,"content":emily_racing_content}]
+    
     for item in l:
         write_to_file(item.get("name"),item.get("content"))
