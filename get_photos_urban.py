@@ -24,8 +24,17 @@ proxies = {
     "http": "127.0.0.1:10003",
     "http": "127.0.0.1:10004",
     "http": "127.0.0.1:10005",
-    "http": "127.0.0.1:10006"
-
+    "http": "127.0.0.1:10006",
+    "http": "127.0.0.1:10009",
+    "http": "127.0.0.1:10010",
+    "http": "127.0.0.1:10011",
+    "http": "127.0.0.1:10012",
+    "http": "127.0.0.1:10013",
+    "http": "127.0.0.1:10014",
+    "http": "127.0.0.1:10015",
+    "http": "127.0.0.1:10016",
+    "http": "127.0.0.1:10017",
+    "http": "127.0.0.1:10018",
 }
 headers = {
     'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:34.0) Gecko/20100101 Firefox/34.0"
@@ -62,6 +71,7 @@ def download_photos(user_dict):
     url = "https://500px.com/popular"
     r = rq.get(url, allow_redirects=False, proxies=proxies)
     status_code = int(r.status_code)
+    print status_code
     if status_code != 200:
         print "ERROR!"
         return
@@ -103,7 +113,7 @@ def download_photos(user_dict):
     username = user_dict.get('username')
     print 'zzzzzzzzzzzzzzzzz'
 
-    for round in xrange(1,2):
+    for round in xrange(10,30):
         try:
             r_post = rq.get(url+str(round+1), headers=header, proxies=proxies)
 
@@ -156,6 +166,10 @@ def download_photos(user_dict):
                             if not os.path.exists(txt_path):
                                 os.makedirs(txt_path)
                             keyword1 = keyword.split("+")[0]
+                            if name.lower().strip().find("untitle") != -1:
+                                contine
+                            if description.lower().strip().find("untitle") != -1:
+                                continue
                             tag = get_hashtag(keyword1)
 
                             print '.'.join([name.strip(), description.strip(), tag])
@@ -177,10 +191,10 @@ def download_photos(user_dict):
                             continue
 
                         item = { '_id':id, 'name':name, 'url':photo_url, 'username':username,'description' :description,"time":datetime.now()}
-                        #try:
-                        #    MONGO[MONGO_DB][MONGO_USER_COLL].insert_one(item)
-                        #except pymongo.errors.DuplicateKeyError,e:
-                        #    print e
+                        try:
+                            MONGO[MONGO_DB][MONGO_USER_COLL].insert_one(item)
+                        except pymongo.errors.DuplicateKeyError,e:
+                            print e
                         time.sleep(3)
                         
             else:
@@ -248,11 +262,11 @@ if __name__ == '__main__':
         user_list.append(user_dict)
 
     #for user_dict in [username_dog,username_healthy,username_car]:
-    pool = Pool(1)
+    pool = Pool(6)
     for user_dict in user_list:
 
         username = user_dict.get("username")
-        user_list = ["diann_look"]
+        user_list = ["karo_loyer","alix_malys"]
         print username
         if username in user_list:
             pool.apply_async(func=download_photos,args=(user_dict,))

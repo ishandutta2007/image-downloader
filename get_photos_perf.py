@@ -9,7 +9,6 @@ import urllib
 import cPickle
 from pymongo import MongoClient
 from datetime import datetime
-from hashtag import get_hashtag
 
 MONGO_HOST = '127.0.0.1'
 MONGO_PORT = 27017
@@ -71,21 +70,6 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 
-def gen_hashtag():
-
-    1
-
-def change_md5(file_path,username,id):
-    file = open(file_path, 'rb').read()
-    filepath = 'D:/500px/%s' % username
-    filename = 'D:/500px/%s/%s.jpg' % (username, str(id))
-
-    if not os.path.exists(filepath):
-        os.makedirs(filepath)
-    with open(filename, 'wb') as new_file:
-        new_file.write(file+'\0')  #here we are adding a null to change the file content
-    return new_file.name
-
 def download_photos(user_dict):
     # check session
     print "begin"
@@ -134,7 +118,7 @@ def download_photos(user_dict):
     zero_fav_enable= ['amy_yoga23',]    
     category_id_list = user_dict.get("category",[])
     username = user_dict.get('username')
-
+    tag = user_dict.get("tag")    
     for round in xrange(5):
         try:
             r_post = rq.get(url+str(round+1), headers=header, proxies=proxies)
@@ -155,7 +139,7 @@ def download_photos(user_dict):
             if not p['watermark']:
                 try:
                     f1 =open("D:/500px/%s.txt" % username,"a")
-                    f1.write("%s-%s-%s--%s--%s--%s--%s--%s\n" % (popular,p['favorites_count'] ,p['rating'],p['highest_rating'] ,p["url"],p['category'],name,description))
+                    f1.write("%s--%s--%s--%s--%s--%s\n" % (p['favorites_count'] ,p['highest_rating'] ,p["url"],p['category'],name,description))
                     f1.close()
                 except Exception,e:
                     print "%s--%s--%s--%s\n" % (p['favorites_count'] ,p['highest_rating'] ,p["url"],p['category'])
@@ -165,10 +149,9 @@ def download_photos(user_dict):
             if username not in zero_fav_enable:
                 if not popular and (p['watermark'] or ( p['favorites_count'] < 80 and  p['highest_rating'] < 92 )):
                     continue
-            elif   username in zero_fav_enable:
+            elif   username in         zero_fav_enable:
                 if not popular and (p['watermark'] or (0< p['favorites_count'] < 80 and  p['highest_rating'] < 92 )):
                     continue
-
             print popular,p['rating']
             if popular and p['rating'] < 50:
                 continue
@@ -179,38 +162,32 @@ def download_photos(user_dict):
 
             if len(description) > 500:
                 continue
-            if description.find('@') != -1 or description.find('http://') != -1 or description.find('https://') != -1 or description.find('www') !=-1 or description.lower().find('sale') !=-1:
+            if description.find('@') != -1 or description.find('http://') != -1 or description.find('https://') != -1 or description.find('www') or description.lower().find('sale') !=-1:
                 description = ""
             if category_id_list and str(category) not in category_id_list:
                 continue
             if not MONGO[MONGO_DB][MONGO_USER_COLL].find_one({'_id': id,'username':username}):
                 for i in p['images']:
+                    
                     if i['size']==2048:
                         try:
-                            filepath = 'D:/500px/tmp/%s' % username
-                            filename = 'D:/500px/tmp/%s/%s.jpg' % (username,str(id))
+                            filepath = 'D:/500px/%s' % username
+                            filename = 'D:/500px/%s/%s.jpg' % (username,str(id))
                             if not os.path.exists(filepath):
-                                os.makedirs(filepath)
-                            urllib.urlretrieve(i['url'], filename)
-                            new_file = change_md5(filename,username,str(id))
+                                os.mkdir(filepath)
                                 
-
-                            txt_path = "D:/500px/%s" % username
+                            urllib.urlretrieve(i['url'],filename)
+                            txt_path = "D:/500px/%s/500txt" % username
                             if not os.path.exists(txt_path):
-                                os.makedirs(txt_path)
-
-                            tag = get_hashtag(keyword)
+                                os.mkdir(txt_path)
                             print tag
-                            print '.'.join([name.strip(),description.strip(),tag])
-                            f = open('D:/500px/%s/%s.txt' % (username,str(id)),'w')
-                            f.writelines(['.'.join([name.strip(),description.strip(),tag.strip()])])
+                            print filename+"\n",'.'.join([name.strip(),description.strip(),tag])
+                            f = open('D:/500px/%s/500txt/%s.txt' % (username,str(id)),'w')
+                            f.writelines([filename+"\n",'.'.join([name.strip(),description.strip(),tag.strip()])])
                             f.close()
                             
                         except Exception,e:
                             print e
-                            import traceback
-                            traceback.print_exc()
-
                             break
                         item = { '_id':id, 'name':name, 'url':photo_url, 'username':username,'description' :description,"time":datetime.now()}
                         MONGO[MONGO_DB][MONGO_USER_COLL].insert_one(item)
@@ -247,17 +224,18 @@ if __name__ == '__main__':
         username = str_list[0]
         popular = True if str_list[1] =="TRUE" else False
         category = str_list[2].split('_')
-
+        
         keyword = str_list[3].replace('"',"")
         hashtag = str_list[5]
         category_name = str_list[4]
         user_dict.update({"username":username,"popular":popular,"category":category,"keyword":keyword,"tag":hashtag,"category_name":category_name})
         user_list.append(user_dict)
-
+    
     #for user_dict in [username_dog,username_healthy,username_car]:
     for user_dict in user_list:
         username = user_dict.get("username")
-        if username == "kate_dog23":
+        
+	if username == "anita_perf23":
             download_photos(user_dict)
 
 

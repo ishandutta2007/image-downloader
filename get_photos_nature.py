@@ -106,9 +106,12 @@ def download_photos(user_dict):
     csrf_token = soup.find("meta", attrs={'name': 'csrf-token'})["content"]
 
     popular =   user_dict.get('popular')
+    if not popular:
+        keyword = user_dict.get("keyword")
+    else:
+        keyword = user_dict.get("category_name")
     if popular == False:
         print "run search"
-        keyword = user_dict.get("keyword")
         url = "https://api.500px.com/v1/photos/search?type=photos&term="+keyword+"&image_size%5B%5D=1&image_size%5B%5D=2&image_size%5B%5D=32&image_size%5B%5D=31&image_size%5B%5D=33&image_size%5B%5D=34&image_size%5B%5D=35&image_size%5B%5D=36&image_size%5B%5D=2048&image_size%5B%5D=4&image_size%5B%5D=14&include_states=true&formats=jpeg%2Clytro&include_tags=true&exclude_nude=true&rpp=50&page="
         csrf_word = 'X-CSRF-Token'
         csrf = csrf_token
@@ -160,7 +163,7 @@ def download_photos(user_dict):
                 except Exception,e:
                     print "%s--%s--%s--%s\n" % (p['favorites_count'] ,p['highest_rating'] ,p["url"],p['category'])
                     print e
-            print username,popular,p['watermark'], p['highest_rating'] < 92,  p['url']
+            print username,popular,p['watermark'], p['highest_rating'] ,  p['url']
 
             if username not in zero_fav_enable:
                 if not popular and (p['watermark'] or ( p['favorites_count'] < 80 and  p['highest_rating'] < 92 )):
@@ -170,7 +173,7 @@ def download_photos(user_dict):
                     continue
 
             print popular,p['rating']
-            if popular and p['rating'] < 50:
+            if popular and (username not in ["ann_nature23"] and  p['rating'] < 50):
                 continue
 
             if name.find('@') != -1 or name.find('http://') != -1 or name.find('https://') != -1 or name.find('www') != -1:
@@ -183,7 +186,9 @@ def download_photos(user_dict):
                 description = ""
             if category_id_list and str(category) not in category_id_list:
                 continue
+
             if not MONGO[MONGO_DB][MONGO_USER_COLL].find_one({'_id': id,'username':username}):
+                print '111111'
                 for i in p['images']:
                     if i['size']==2048:
                         try:
@@ -193,17 +198,16 @@ def download_photos(user_dict):
                                 os.makedirs(filepath)
                             urllib.urlretrieve(i['url'], filename)
                             new_file = change_md5(filename,username,str(id))
-                                
 
-                            txt_path = "D:/500px/%s" % username
+                            txt_path = "D:/500px/%s/500txt" % username
                             if not os.path.exists(txt_path):
                                 os.makedirs(txt_path)
 
                             tag = get_hashtag(keyword)
                             print tag
-                            print '.'.join([name.strip(),description.strip(),tag])
-                            f = open('D:/500px/%s/%s.txt' % (username,str(id)),'w')
-                            f.writelines(['.'.join([name.strip(),description.strip(),tag.strip()])])
+                            print new_file+"\n",'.'.join([name.strip(),description.strip(),tag])
+                            f = open('D:/500px/%s/500txt/%s.txt' % (username,str(id)),'w')
+                            f.writelines([new_file+"\n",'.'.join([name.strip(),description.strip(),tag.strip()])])
                             f.close()
                             
                         except Exception,e:
@@ -244,6 +248,7 @@ if __name__ == '__main__':
     for line in lines[:40]:
         user_dict = {}
         str_list = line.split(",")
+
         username = str_list[0]
         popular = True if str_list[1] =="TRUE" else False
         category = str_list[2].split('_')
@@ -257,7 +262,7 @@ if __name__ == '__main__':
     #for user_dict in [username_dog,username_healthy,username_car]:
     for user_dict in user_list:
         username = user_dict.get("username")
-        if username == "kate_dog23":
+        if username == "ann_nature23":
             download_photos(user_dict)
 
 

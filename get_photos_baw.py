@@ -202,7 +202,7 @@ def download_photos(user_dict):
                             txt_path = "D:/500px/%s/500txt" % username
                             if not os.path.exists(txt_path):
                                 os.makedirs(txt_path)
-                            keyword = keyword.replace("+", '')
+                                keyword = keyword.replace("+", '')
                             tag = get_hashtag(keyword)
                             print tag
                             print new_file+"\n",'.'.join([name.strip(),description.strip(),tag])

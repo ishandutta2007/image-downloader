@@ -22,7 +22,7 @@ def get_toptag(keyword):
 
     l = tag.text.split("#")
     l = [tmp.strip()+" " for tmp in l if tmp.strip() != ""]
-    top = random.sample(l, 12)
+    top = random.sample(l, 15)
     return top
 
 def get_hashtag(keyword):
@@ -33,12 +33,17 @@ def get_hashtag(keyword):
     print tag,tag.text
     l = tag.text.split("#")
     l= [tmp.strip()+" " for tmp in l if tmp.strip() != ""]
-    rad = random.sample(l,2)
+    rad = random.sample(l,1)
     top = get_toptag(keyword)
     print rad
     print top
     print  '========'
     s = "#"+"#".join(list(set((rad+top))))
+    value = random.randint(1, 2)
+    if value == 1:
+        s+=" #newyork #chicago #losangeles"
+    else:
+        s += " #newyork #paris"
     return s
 
 if __name__ == "__main__":
