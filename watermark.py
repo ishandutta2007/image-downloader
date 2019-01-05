@@ -16,8 +16,8 @@ def watermark_text(input_image_path,
     fnt = ImageFont.truetype('arial.ttf', 50)
 
     d = ImageDraw.Draw(txt)
-    x = width / 1.3
-    y = height / 1.05
+    x = width / 1.5
+    y = height / 1.1
 
     # draw text, half opacity
     d.text((x, y), text, font=fnt, fill=(255, 255, 255, 128))
@@ -26,7 +26,7 @@ def watermark_text(input_image_path,
     out.convert('RGB').save(output_image_path)
 
 if __name__ == '__main__':
-    img = 'F://watermark//52085972.jpg'
-    watermark_text(img, 'F://watermark//52085972_w.jpg',
+    img = 'F://watermark//115461607.jpg'
+    watermark_text(img, 'F://watermark//115461607_w.jpg',
                    text='ootdshare.com',
                    pos=(0, 0))
