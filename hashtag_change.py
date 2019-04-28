@@ -54,14 +54,11 @@ if __name__ == "__main__":
     from os import walk
     import  os
 
-    for line in lines[0:99]:
-        print line
+    for line in lines[5:8]:
         if not line:
             continue
         str_list = line.split(",")
-        print  line
         keyword = str_list[3].replace('"', "")
-        print  keyword
 
         if not keyword:
             keyword = str_list[4].replace('"', "")
@@ -71,27 +68,42 @@ if __name__ == "__main__":
             continue
 
         username = str_list[0]
+        if username != "emma_accessories23":
+            continue
+        #
+        print "----"
         f = []
-        for (dirpath, dirnames, filenames) in walk("F://500px3//%s" % username):
+        for (dirpath, dirnames, filenames) in walk("F://500px3_2//%s" % username):
             for filename in filenames:
                 if filename.endswith('txt'):
                     f.append(os.path.join(dirpath,filename))
 
         for file  in f:
-            try:
-                text = get_hashtag(keyword)
-            except:
-                continue
+            #try:
+            #    text = get_hashtag(keyword)
+            #except:
+            #    continue
             content = ''
+            text = ''
+
             with open(file,'r') as tmp_f:
-                line = tmp_f.readline()
-                content = line.split("#")[0]
+                try:
+                    line = tmp_f.readline()
+                    print line
+                    content = line.split("#")[0]
+                    text = line.split("#")[1:-1]
+                except:
+                    pass
+
+            text1 = " #".join(text) + "#ootdshare #ootd #fashion #clothing #woman"
             print  '==========='
-            print file
-            print  text
+            print content
+            print content+text1
+            print "----"
             with open(file,'w') as tmp_f:
                 try:
-                    tmp_f.writelines(content+text)
+                    print  content+text1
+                    tmp_f.writelines(content+text1)
                 except:
                     pass
 
