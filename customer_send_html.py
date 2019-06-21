@@ -90,16 +90,15 @@ def split_list(lines):
     global content
     num = 0
     for line in lines:
-
         if not (line.find("@") != -1):
             continue
 
-        if MONGO[MONGO_DB][MONGO_USER_COLL].find_one({'_id': line}):
-            continue
+
         line = line.strip()
 
         line_list = line.split("@")
         username,mailserver = line_list[0],line_list[1]
+        print line
         if check(line):
             continue
 
@@ -108,13 +107,14 @@ def split_list(lines):
         if username.find(".") != -1:
             username = username.split(".")[0]
         print num
-        if num > 50:
-            sys.exit()
+        #if num > 50:
+        #   sys.exit()
         content = content.format(name=username)
         print ("Email send to %s" % line)
+        global html_content
         html_content = html_content
 
-        #send_html('kate', 'password123',line, 'Hi %s' % username, html_content)
+        send_html('kate', 'password123',line, 'Hi %s' % username, html_content)
         num = num +1
         time.sleep(1200)
 
@@ -125,28 +125,30 @@ if __name__ == '__main__':
     db = MONGO.txt
     collection = db['email']
     cursor = collection.find({})
-
-    for document in cursor:
-        lines.append(document.get("_id"))
-
     d = {}
-    for line in lines:
+
+
+    for line in cursor:
+        line = line.strip()
+        line = line.get("_id")
+        lines.append(line)
+        if MONGO[MONGO_DB][MONGO_USER_COLL].find_one({'_id': line}):
+            continue
         mail = line.split("@")[1].strip()
         d[mail] = d.get(mail, 0) + 1
 
-
     l = []
+    print len(d.items())
     for k,v in d.items():
-        #if v>100:
         l.append(k.strip())
 
     process_list = []
-    print len(l)
+    print l
     for mail in l:
         split_mail = [line for line in lines if line.split("@")[1].strip() == mail.strip()]
         p = multiprocessing.Process(target=split_list, args=(split_mail,))
         process_list.append(p)
 
-    for process in process_list:
+    for process in process_list[:1]:
         process.start()
 

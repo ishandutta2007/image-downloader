@@ -12,7 +12,7 @@ if __name__ ==  "__main__":
     f = open("F:/instagram/niches/niches_new2.csv","r")
     lines = f.readlines()
     user_list = []
-    for line in lines[0:33]:
+    for line in lines[:33]:
         if not line.replace("'","").replace(',',"").replace(",",'').strip():
             continue
         print line

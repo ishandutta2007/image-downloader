@@ -27,7 +27,7 @@ def watermark_text(input_image_path,
 
 if __name__ == '__main__':
     import os
-    for path, directories, files in os.walk('F://instagram//instagram-scraper'):
+    for path, directories, files in os.walk('C://Users//wu//influencers//maisie_williams'):
         for name in files:
             if name.endswith("jpg"):
             #img = 'F://watermark//115461607.jpg'

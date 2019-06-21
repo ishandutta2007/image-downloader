@@ -18,10 +18,10 @@ def write_txt():
 
     print len(quote_list)
     count = 0
-    for path, directories, files in os.walk('C://Users//wu//Documents//catalog//clothing//dresses'):
+    for path, directories, files in os.walk('F://instagram//instagram-scraper'):
 
         for index,name in enumerate(files):
-            if name.endswith("jpeg"):
+            if name.lower().endswith("mp4"):
                 print os.path.join(path, os.path.splitext(name)[0]+".txt")
                 f = open(os.path.join(path, os.path.splitext(name)[0]+".txt"),"w")
                 caption = random.choice(quote_list)
